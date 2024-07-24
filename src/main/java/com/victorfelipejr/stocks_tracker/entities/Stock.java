@@ -1,5 +1,4 @@
 package com.victorfelipejr.stocks_tracker.entities;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -7,39 +6,46 @@ import jakarta.persistence.*;
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stockId;
+    private Long id;
 
-    @Column(name = "stock_name")
-    private String stockName;
-    @Column(name = "stock_ticker")
-    private String stockTicker;
-    @Column(name = "stock_price")
-    private Double stockPrice;
-    @Column(name = "stock_volume")
-    private Double stockVolume;
-    @Column(name = "stock_change")
-    private Double stockChange;
-    @Column(name = "stock_change_percent")
-    private Double stockChangePercent;
-    @Column(name = "timestamp")
-    private Long timestamp;
+//    private String stockName;
+    private String stock_ticker;
+    private Double stock_price;
+    private String timestamp;
 
-    // Getters
-    public Long getStockId() { return stockId; }
-    public String getStockName() { return stockName;}
-    public String getStockTicker() { return stockTicker; }
-    public Double getStockPrice() { return stockPrice; }
-    public Double getStockVolume() { return stockVolume; }
-    public Double getStockChange() { return stockChange; }
-    public Double getStockChangePercent() { return stockChangePercent; }
-    public Long getTimestamp() { return timestamp; }
+    public Stock(){}
 
-    // Setters
-    public void setStockName(String stockName) { this.stockName = stockName; }
-    public void setStockTicker(String stockTicker) { this.stockTicker = stockTicker; }
-    public void setStockPrice(Double stockPrice) { this.stockPrice = stockPrice; }
-    public void setStockVolume(Double stockVolume) { this.stockVolume = stockVolume; }
-    public void setStockChange(Double stockChange) { this.stockChange = stockChange; }
-    public void setStockChangePercent(Double stockChangePercent) { this.stockChangePercent = stockChangePercent; }
-    public void setTimestamp(Long timestamp) { this.timestamp = timestamp; }
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id){
+        this.id = id;
+    }
+//    public String getStockName(){
+//        return stockName;
+//    }
+//    public void setStockName(String stockName){
+//        this.stockName = stockName;
+//    }
+    public String getStockTicker(){
+        return stock_ticker;
+    }
+    public void setStockTicker(String stock_ticker){
+        this.stock_ticker = stock_ticker;
+    }
+    public Double getStockPrice(){
+        return stock_price;
+    }
+    public void setStockPrice(Double stock_price){
+        this.stock_price = stock_price  ;
+    }
+
+    public String getTimestamp(){
+        return timestamp;
+    }
+    public void setTimestamp(String timestamp){
+        this.timestamp = timestamp;
+    }
 }
