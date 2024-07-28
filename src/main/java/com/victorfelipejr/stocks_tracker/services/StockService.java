@@ -2,8 +2,11 @@ package com.victorfelipejr.stocks_tracker.services;
 
 import com.victorfelipejr.stocks_tracker.entities.Stock;
 import com.victorfelipejr.stocks_tracker.repositories.StockRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -31,5 +34,7 @@ public class StockService {
     public void saveAllStocks(List<Stock> stocks){
         stockRepository.saveAll(stocks);
     }
+
+
 
 }
