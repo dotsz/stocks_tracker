@@ -8,44 +8,68 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    private String stockName;
-    private String stock_ticker;
-    private Double stock_price;
-    private String timestamp;
+    private String stockName;
+    private String stockSymbol;
+    private Double currentPrice;
+    private Double marketHigh;
+    private Double marketLow;
+    private Double fifthyDayAverage;
+    private String currentDate;
 
-    public Stock(){}
+    // Constructor
+    public Stock() {
+    }
 
+    public Stock(String name, String symbol, Double currentPrice, Double marketHigh, Double marketLow, Double average, String currentDate) {
+    }
 
-    // Getters and setters
+    // Getters
     public Long getId() {
         return id;
     }
-    public void setId(Long id){
-        this.id = id;
+    public String getStockName() {
+        return stockName;
     }
-//    public String getStockName(){
-//        return stockName;
-//    }
-//    public void setStockName(String stockName){
-//        this.stockName = stockName;
-//    }
-    public String getStockTicker(){
-        return stock_ticker;
+    public String getStockSymbol() {
+        return stockSymbol;
     }
-    public void setStockTicker(String stock_ticker){
-        this.stock_ticker = stock_ticker;
+    public Double getCurrentPrice() {
+        return currentPrice;
     }
-    public Double getStockPrice(){
-        return stock_price;
+    public Double getMarketHigh() {
+        return marketHigh;
     }
-    public void setStockPrice(Double stock_price){
-        this.stock_price = stock_price  ;
+    public Double getMarketLow() {
+        return marketLow;
+    }
+    public Double getFifthyDayAverage() {
+        return fifthyDayAverage;
+    }
+    public String getCurrentDate() {
+        return currentDate;
     }
 
-    public String getTimestamp(){
-        return timestamp;
+    // Setters
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
-    public void setTimestamp(String timestamp){
-        this.timestamp = timestamp;
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
+    public void setCurrentPrice(Double currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+    public void setMarketHigh(Double marketHigh) {
+        this.marketHigh = marketHigh;
+    }
+    public void setMarketLow(Double marketLow) {
+        this.marketLow = marketLow;
+    }
+    public void setFifthyDayAverage(Double fifthyDayAverage) {
+        this.fifthyDayAverage = fifthyDayAverage;
+    }
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
+
 }
