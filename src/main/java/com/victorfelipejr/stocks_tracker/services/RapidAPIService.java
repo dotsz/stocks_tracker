@@ -1,5 +1,6 @@
 package com.victorfelipejr.stocks_tracker.services;
 
+import com.vaadin.flow.component.notification.Notification;
 import com.victorfelipejr.stocks_tracker.entities.Stock;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,19 +38,25 @@ public class RapidAPIService {
 
 
         // parse JSON response
-        JSONObject jsonResponse = new JSONObject(response.getBody());
-        JSONObject quote = jsonResponse.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0);
+        try {
+            JSONObject jsonResponse = new JSONObject(response.getBody());
+            JSONObject quote = jsonResponse.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0);
 
-        String name = quote.optString("longName", "N/A");
-        String symbol = quote.optString("symbol", "N/A");
-        Double currentPrice = quote.optDouble("regularMarketPrice", 0.0);
-        Double marketHigh = quote.optDouble("regularMarketDayHigh", 0.0);
-        Double marketLow = quote.optDouble("regularMarketDayLow", 0.0);
-        Double average = quote.optDouble("fiftyDayAverage", 0.0);
-        String currentDate = quote.optString("regularMarketTime", "N/A");
+            // create Stock object
+            String name = quote.optString("longName", "N/A");
+            String symbol = quote.optString("symbol", "N/A");
+            Double currentPrice = quote.optDouble("regularMarketPrice", 0.0);
+            Double marketHigh = quote.optDouble("regularMarketDayHigh", 0.0);
+            Double marketLow = quote.optDouble("regularMarketDayLow", 0.0);
+            Double average = quote.optDouble("fiftyDayAverage", 0.0);
+            String currentDate = quote.optString("regularMarketTime", "N/A");
 
-        return new Stock(name, symbol, currentPrice, marketHigh, marketLow, average, currentDate);
-
+            return new Stock(name, symbol, currentPrice, marketHigh, marketLow, average, currentDate);
+        }
+        catch (Exception e) {
+            Notification.show("Error: " + e.getMessage(), 5000, Notification.Position.MIDDLE);
+            return null;
+        }
 
     }
 

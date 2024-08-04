@@ -1,6 +1,11 @@
 package com.victorfelipejr.stocks_tracker.entities;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Table(name = "stocks")
 public class Stock {
@@ -19,8 +24,22 @@ public class Stock {
     // Constructor
     public Stock() {
     }
-
+    // Constructor with parameters
     public Stock(String name, String symbol, Double currentPrice, Double marketHigh, Double marketLow, Double average, String currentDate) {
+        this.stockName = name;
+        this.stockSymbol = symbol;
+        this.currentPrice = currentPrice;
+        this.marketHigh = marketHigh;
+        this.marketLow = marketLow;
+        this.fifthyDayAverage = average;
+        this.currentDate = convertTimestampToHumanReadable(currentDate);
+    }
+
+    // time converter
+    private static String convertTimestampToHumanReadable(String regularMarketTime) {
+        Instant instant = Instant.ofEpochSecond(Long.parseLong(regularMarketTime));
+        ZonedDateTime dateTime = instant.atZone(ZoneId.of("America/Toronto"));
+        return dateTime.format(DateTimeFormatter.ofPattern("hh:mm yyyy-MM-dd a z"));
     }
 
     // Getters
@@ -33,18 +52,12 @@ public class Stock {
     public String getStockSymbol() {
         return stockSymbol;
     }
-    public Double getCurrentPrice() {
-        return currentPrice;
-    }
+    public Double getCurrentPrice() {return currentPrice;}
     public Double getMarketHigh() {
         return marketHigh;
     }
-    public Double getMarketLow() {
-        return marketLow;
-    }
-    public Double getFifthyDayAverage() {
-        return fifthyDayAverage;
-    }
+    public Double getMarketLow() {return marketLow;}
+    public Double getFifthyDayAverage() {return fifthyDayAverage;}
     public String getCurrentDate() {
         return currentDate;
     }
@@ -56,9 +69,7 @@ public class Stock {
     public void setStockSymbol(String stockSymbol) {
         this.stockSymbol = stockSymbol;
     }
-    public void setCurrentPrice(Double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
+    public void setCurrentPrice(Double currentPrice) {this.currentPrice = currentPrice;}
     public void setMarketHigh(Double marketHigh) {
         this.marketHigh = marketHigh;
     }
@@ -69,7 +80,7 @@ public class Stock {
         this.fifthyDayAverage = fifthyDayAverage;
     }
     public void setCurrentDate(String currentDate) {
-        this.currentDate = currentDate;
+        this.currentDate = convertTimestampToHumanReadable(currentDate);
     }
 
 }
