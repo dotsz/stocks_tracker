@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 
 @Service
 public class RapidAPIService {
@@ -20,12 +22,12 @@ public class RapidAPIService {
     private String rapidApiKey;
 
     public Stock getStockQuotes(String stockSymbol) {
-        String apiURL = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?symbols=" + stockSymbol;
+        String apiURL = "https://twelve-data1.p.rapidapi.com/quote?symbol=" + stockSymbol + "&interval=1day&outputsize=30";
 
         // prepare headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-rapidapi-key", rapidApiKey);
-        headers.set("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com");
+        headers.set("x-rapidapi-host", "twelve-data1.p.rapidapi.com");
 
         // create request entity
         HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -36,22 +38,24 @@ public class RapidAPIService {
 
         response = restTemplate.exchange(apiURL, HttpMethod.GET, entity, String.class);
 
-
-        // parse JSON response
         try {
-            JSONObject jsonResponse = new JSONObject(response.getBody());
-            JSONObject quote = jsonResponse.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0);
+            // parse JSON response
+            JSONObject quote = new JSONObject(response.getBody());
 
             // create Stock object
-            String name = quote.optString("longName", "N/A");
+            String name = quote.optString("name", "N/A");
             String symbol = quote.optString("symbol", "N/A");
-            Double currentPrice = quote.optDouble("regularMarketPrice", 0.0);
-            Double marketHigh = quote.optDouble("regularMarketDayHigh", 0.0);
-            Double marketLow = quote.optDouble("regularMarketDayLow", 0.0);
-            Double average = quote.optDouble("fiftyDayAverage", 0.0);
-            String currentDate = quote.optString("regularMarketTime", "N/A");
+            Double currentPrice = quote.optDouble("open", 0.0);
+            Double marketHigh = quote.optDouble("high", 0.0);
+            Double marketLow = quote.optDouble("low", 0.0);
 
-            return new Stock(name, symbol, currentPrice, marketHigh, marketLow, average, currentDate);
+            //Debug
+            long timestamp = quote.optLong("timestamp", 0);
+            System.out.println("Timestamp: " + Date.from(new Date(timestamp).toInstant()));
+            Notification.show("Timestamp: " + Date.from(new Date(timestamp).toInstant()), 5000, Notification.Position.MIDDLE);
+
+
+            return new Stock(name, symbol, currentPrice, marketHigh, marketLow);
         }
         catch (Exception e) {
             Notification.show("Error: " + e.getMessage(), 5000, Notification.Position.MIDDLE);
