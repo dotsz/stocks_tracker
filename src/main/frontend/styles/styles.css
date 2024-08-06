@@ -1,6 +1,14 @@
-h1 {
-    font-size: 2.5em;
+.title {
     margin: 0 auto;
-
-
+    font-size: 2.5rem;
 }
+
+.buttons-layout{
+    margin: 0 auto;
+}
+
+.stockInformationContainer, stockPricesContainer {
+    padding: 3px;
+}
+
+

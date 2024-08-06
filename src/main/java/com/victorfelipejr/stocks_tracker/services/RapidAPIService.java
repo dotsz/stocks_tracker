@@ -49,12 +49,6 @@ public class RapidAPIService {
             Double marketHigh = quote.optDouble("high", 0.0);
             Double marketLow = quote.optDouble("low", 0.0);
 
-            //Debug
-            long timestamp = quote.optLong("timestamp", 0);
-            System.out.println("Timestamp: " + Date.from(new Date(timestamp).toInstant()));
-            Notification.show("Timestamp: " + Date.from(new Date(timestamp).toInstant()), 5000, Notification.Position.MIDDLE);
-
-
             return new Stock(name, symbol, currentPrice, marketHigh, marketLow);
         }
         catch (Exception e) {

@@ -4,14 +4,13 @@ import com.victorfelipejr.stocks_tracker.entities.Stock;
 import com.victorfelipejr.stocks_tracker.repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class StockService {
 
-    private final StockRepository stockRepository;
+    private StockRepository stockRepository;
 
     @Autowired
     public StockService(StockRepository stockRepository) {
@@ -24,7 +23,6 @@ public class StockService {
         return stockRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public void saveOrUpdateStock(Stock stock){
         stockRepository.save(stock);
     }
@@ -35,13 +33,9 @@ public class StockService {
         stockRepository.saveAll(stocks);
     }
 
-    @Transactional
-    public void resetDatabase(){
-        stockRepository.deleteAll();
-        stockRepository.flush();
+    public Stock findByStockSymbol(String stockSymbol){
+        return stockRepository.findByStockSymbol(stockSymbol);
     }
-
-
 
 
 }

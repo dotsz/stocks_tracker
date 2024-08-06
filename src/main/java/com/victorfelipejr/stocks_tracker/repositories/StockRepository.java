@@ -6,4 +6,5 @@ import com.victorfelipejr.stocks_tracker.entities.Stock;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
+    Stock findByStockSymbol(String stockSymbol);
 }
