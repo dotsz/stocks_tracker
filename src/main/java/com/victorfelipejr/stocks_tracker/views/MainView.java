@@ -57,14 +57,13 @@ public class MainView extends VerticalLayout {
         marketLow.setClassName("market-low-field");
 
 
-        Div stockInformationContainer = new Div();
-        stockInformationContainer.add(stockName, stockSymbol);
         Div stockPricesContainer = new Div();
         stockPricesContainer.add(currentPrice, marketHigh, marketLow);
 
         // Stock Information
         VerticalLayout stockInformationPanel = new VerticalLayout();
-        stockInformationPanel.add(stockInformationContainer, stockPricesContainer);
+        stockInformationPanel.add(stockSymbol, stockName, stockPricesContainer);
+        stockName.setWidth("100%");
         stockInformationPanel.addClassName("stock-information");
         stockInformationPanel.setWidth("50vw");
         stockInformationPanel.getStyle().set("background-color", "#f4f5f7");
