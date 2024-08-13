@@ -13,19 +13,18 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class RapidAPIService {
-
+public class RealTimeFinanceDataRapidApiService {
 
     @Value("${apikey_rapid}")
     private String rapidApiKey;
 
-    public Stock getStockQuotes(String stockSymbol) {
-        String apiURL = "https://twelve-data1.p.rapidapi.com/quote?symbol=" + stockSymbol + "&interval=1day&outputsize=30";
+    public Stock getData(String stockSymbol) {
+        String apiURL = "https://real-time-finance-data.p.rapidapi.com/stock-quote?symbol=" + stockSymbol + "&language=en HTTP/1.1";
 
         // prepare headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-rapidapi-key", rapidApiKey);
-        headers.set("x-rapidapi-host", "twelve-data1.p.rapidapi.com");
+        headers.set("x-rapidapi-host", "real-time-finance-data.p.rapidapi.com");
 
         // create request entity
         HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -38,16 +37,21 @@ public class RapidAPIService {
 
         try {
             // parse JSON response
-            JSONObject quote = new JSONObject(response.getBody());
+            JSONObject jsonResponse = new JSONObject(response.getBody());
+            JSONObject dataObject = jsonResponse.getJSONObject("data");
+
 
             // create Stock object
-            String name = quote.optString("name", "N/A");
-            String symbol = quote.optString("symbol", "N/A");
-            Double currentPrice = quote.optDouble("open", 0.0);
-            Double marketHigh = quote.optDouble("high", 0.0);
-            Double marketLow = quote.optDouble("low", 0.0);
+            String name = dataObject.optString("name", "N/A");
+            String symbol = dataObject.optString("symbol", "N/A");
+            Double currentPrice = dataObject.optDouble("price", 0.0);
+            Double marketHigh = dataObject.optDouble("high", 0.0);
+            Double marketLow = dataObject.optDouble("low", 0.0);
+            Double previousClose = dataObject.optDouble("previous_close", 0.0);
+            String lastUpdated = dataObject.optString("last_update_utc", "N/A");
 
-            return new Stock(name, symbol, currentPrice, marketHigh, marketLow);
+
+            return new Stock(name, symbol, currentPrice, marketHigh, marketLow, previousClose, lastUpdated);
         }
         catch (Exception e) {
             Notification.show("Error: " + e.getMessage(), 5000, Notification.Position.MIDDLE);
