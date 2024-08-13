@@ -1,1 +1,0 @@
-web: java-Dserver.port=$PORT -jar target/dependency/stocks_tracker-web-app-1.0-SNAPSHOT.jar
