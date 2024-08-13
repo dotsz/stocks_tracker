@@ -87,39 +87,39 @@ public class MainView extends VerticalLayout {
         newsPanel.setWidth("50vw");
         newsPanel.setMaxHeight("50%");
         newsPanel.getStyle().set("background-color", "#f4f5f7");
-        VirtualList<News> virtualList = new VirtualList<>();
-        virtualList.setMaxHeight("100%");
 
-        virtualList.setRenderer(new ComponentRenderer<>(news -> {
+        // VirtualList
+        VirtualList<News> newsVirtualList = new VirtualList<>();
+
+        newsVirtualList.setRenderer(new ComponentRenderer<>(news -> {
             VerticalLayout newsLayout = new VerticalLayout();
+            newsLayout.setPadding(false);
+            newsLayout.setSpacing(false);
 
-            Image newsImage = new Image(news.getNewsImage(), "News Image");
-            newsImage.setMaxWidth("400px");
+            Image newsImage = new Image(news.getPhotoUrl(), news.getNewsTitle());
+            newsImage.setMaxWidth("80%");
             newsLayout.add(newsImage);
 
             Paragraph newsTitle = new Paragraph(news.getNewsTitle());
+            newsTitle.getStyle().set("font-weight", "bold");
+            newsTitle.getStyle().set("font-size", "1.2em");
             newsLayout.add(newsTitle);
 
-            Paragraph newsText = new Paragraph(news.getNewsText());
-            newsLayout.add(newsText);
+            Anchor newsUrl = new Anchor(news.getNewsUrl(), "Click to Read More...");
+            newsUrl.setTarget("_blank");
+            newsLayout.add(newsUrl);
 
-            Anchor url = new Anchor(news.getNewsUrl(), "Read more");
-            url.setTarget("_blank");
-            newsLayout.add(url);
+            Paragraph newsSource = new Paragraph("Source: " + news.getNewsSource());
+            newsLayout.add(newsSource);
 
-            Paragraph source = new Paragraph("Source: " + news.getNewsSource());
-            newsLayout.add(source);
-
-            Paragraph date = new Paragraph("Date: " + news.getNewsDate());
-            newsLayout.add(date);
-
-            newsLayout.getStyle().set("border", "1px solid #ccc");
-
+            Paragraph newsPostedTime = new Paragraph("Posted on: " + news.getNewsPostedTime());
+            newsLayout.add(newsPostedTime);
 
             return newsLayout;
         }));
 
-        newsPanel.add(virtualList);
+        newsPanel.add(newsVirtualList);
+
 
         // Buttons
         TextField searchField = new TextField("", "Search Stock Symbol");
@@ -159,7 +159,9 @@ public class MainView extends VerticalLayout {
         // Event Listeners
         searchButton.addClickListener(_ -> {
             String symbol = searchField.getValue();
-            Stock stockFromApi = realTimeFinanceDataRapidApiService.getData(symbol);
+            Stock stockFromApi = realTimeFinanceDataRapidApiService.getStockQuoteData(symbol);
+            List<News> newsList = realTimeFinanceDataRapidApiService.getStockNewsData(symbol);
+
 
 
             try {
@@ -171,6 +173,10 @@ public class MainView extends VerticalLayout {
                     marketLow.setValue(stockFromApi.getMarketLow().toString());
                     previousClose.setValue(stockFromApi.getPreviousClose().toString());
                     lastUpdated.setValue(stockFromApi.getLastUpdated());
+                }
+
+                if(newsList != null){
+                    newsVirtualList.setItems(newsList);
                 }
 
             } catch (Exception e){
