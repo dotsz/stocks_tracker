@@ -19,16 +19,14 @@ public class StockService {
     public List<Stock> getAllStocks() {
         return stockRepository.findAll();
     }
-    public Stock getStockByID(Long id){
+    public Stock getStockByID(String id){
         return stockRepository.findById(id).orElse(null);
     }
 
     public void saveOrUpdateStock(Stock stock){
         stockRepository.save(stock);
     }
-    public void deleteStockbyId(Long id){
-        stockRepository.deleteById(id);
-    }
+    public void deleteStockbyId(String id){ stockRepository.deleteById(id);}
     public void saveAllStocks(List<Stock> stocks){
         stockRepository.saveAll(stocks);
     }

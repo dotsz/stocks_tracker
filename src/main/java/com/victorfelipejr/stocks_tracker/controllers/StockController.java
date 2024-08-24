@@ -26,12 +26,12 @@ public class StockController {
     }
 
     @GetMapping("/{id}")
-    public Stock getStock(@PathVariable Long id) {
+    public Stock getStock(@PathVariable String id) {
         return stockService.getStockByID(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStock(@PathVariable Long id) {
+    public void deleteStock(@PathVariable String id) {
         stockService.deleteStockbyId(id);
     }
 }

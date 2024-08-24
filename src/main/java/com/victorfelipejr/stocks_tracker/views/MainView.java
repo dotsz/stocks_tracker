@@ -157,7 +157,7 @@ public class MainView extends VerticalLayout {
         add(title, buttonsLayout, mainLayout, stockGrid);
 
         // Event Listeners
-        searchButton.addClickListener(_ -> {
+        searchButton.addClickListener( event -> {
             String symbol = searchField.getValue();
             Stock stockFromApi = realTimeFinanceDataRapidApiService.getStockQuoteData(symbol);
             List<News> newsList = realTimeFinanceDataRapidApiService.getStockNewsData(symbol);
@@ -184,7 +184,7 @@ public class MainView extends VerticalLayout {
             }
         });
 
-        addToWatchlist.addClickListener(_ -> {
+        addToWatchlist.addClickListener( event -> {
             String symbol = stockSymbol.getValue();
             Stock existingStock = stockList.stream().filter(stock -> stock.getStockSymbol().equals(symbol)).findFirst().orElse(null);
 
@@ -219,7 +219,7 @@ public class MainView extends VerticalLayout {
             }
         });
 
-        saveWatchList.addClickListener(_ -> {
+        saveWatchList.addClickListener( event -> {
             stockService.saveAllStocks(stockList);
             Notification.show("Watchlist saved", 5000, Notification.Position.MIDDLE);
         });

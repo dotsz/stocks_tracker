@@ -1,17 +1,13 @@
 package com.victorfelipejr.stocks_tracker.entities;
-import jakarta.persistence.*;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "stocks")
+
+@Document(collection = "stocks")
 public class Stock {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String stockName;
     private String stockSymbol;
@@ -37,7 +33,7 @@ public class Stock {
     }
 
     // Getters
-    public Long getId() {
+    public String getId() {
         return id;
     }
     public String getStockName() {
