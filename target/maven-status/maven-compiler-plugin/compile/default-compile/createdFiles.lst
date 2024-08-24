@@ -1,0 +1,9 @@
+com\victorfelipejr\stocks_tracker\entities\News.class
+com\victorfelipejr\stocks_tracker\entities\Stock.class
+com\victorfelipejr\stocks_tracker\services\RealTimeFinanceDataRapidApiService.class
+com\victorfelipejr\stocks_tracker\configs\SecurityConfig.class
+com\victorfelipejr\stocks_tracker\StocksTrackerApplication.class
+com\victorfelipejr\stocks_tracker\controllers\StockController.class
+com\victorfelipejr\stocks_tracker\services\StockService.class
+com\victorfelipejr\stocks_tracker\repositories\StockRepository.class
+com\victorfelipejr\stocks_tracker\views\MainView.class

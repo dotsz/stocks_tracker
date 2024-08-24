@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/src/main/frontend/generated/jar-resources",
+  "staticOutput": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\Users\\Dotsz\\Documents\\Java-\\stocks_tracker\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\Users\\Dotsz\\Documents\\Java-\\stocks_tracker\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/target/dev-bundle/config",
+  "jarResourcesFolder": "C:/Users/Dotsz/Documents/Java-/stocks_tracker/src/main/frontend/generated/jar-resources",
+  "themeName": "",
+  "clientServiceWorkerSource": "C:\\Users\\Dotsz\\Documents\\Java-\\stocks_tracker\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
