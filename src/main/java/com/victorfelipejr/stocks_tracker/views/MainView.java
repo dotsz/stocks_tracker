@@ -20,9 +20,10 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.victorfelipejr.stocks_tracker.entities.News;
 import com.victorfelipejr.stocks_tracker.entities.Stock;
-import com.victorfelipejr.stocks_tracker.services.RealTimeFinanceDataRapidApiService;
+import com.victorfelipejr.stocks_tracker.externalservice.RealTimeFinanceDataRapidApiService;
 import com.victorfelipejr.stocks_tracker.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,12 +160,11 @@ public class MainView extends VerticalLayout {
         // Event Listeners
         searchButton.addClickListener( event -> {
             String symbol = searchField.getValue();
-            Stock stockFromApi = realTimeFinanceDataRapidApiService.getStockQuoteData(symbol);
-            List<News> newsList = realTimeFinanceDataRapidApiService.getStockNewsData(symbol);
 
-
+//            List<News> newsList = realTimeFinanceDataRapidApiService.getStockNewsData(symbol);
 
             try {
+                Stock stockFromApi = realTimeFinanceDataRapidApiService.getStockData(symbol);
                 if (stockFromApi != null) {
                     stockName.setValue(stockFromApi.getStockName());
                     stockSymbol.setValue(stockFromApi.getStockSymbol());
@@ -175,11 +175,16 @@ public class MainView extends VerticalLayout {
                     lastUpdated.setValue(stockFromApi.getLastUpdated());
                 }
 
-                if(newsList != null){
-                    newsVirtualList.setItems(newsList);
-                }
+//                if(newsList != null){
+//                    newsVirtualList.setItems(newsList);
+//                }
 
-            } catch (Exception e){
+            } catch (HttpClientErrorException.TooManyRequests e){
+                Notification.show(String.valueOf(e), 10000, Notification.Position.MIDDLE);
+
+            }
+
+            catch (Exception e){
                 Notification.show("Error: " + e.getMessage(), 5000, Notification.Position.MIDDLE);
             }
         });
