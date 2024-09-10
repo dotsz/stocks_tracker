@@ -1,3 +1,8 @@
+## Will rewrite the whole project to use Spring as backend RESTFUL API
+## Will rewrite the whole app on a containerized environment
+## Most likely use Kotlin for the backend
+## Will use Angular for the frontend
+
 
 # Stocks Tracker
 
